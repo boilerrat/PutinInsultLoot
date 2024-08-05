@@ -4,11 +4,21 @@ pragma solidity ^0.8.21;
 import "forge-std/Test.sol";
 import "../src/PutinInsultLoot.sol"; // Adjust the path as necessary
 
-contract TestMinting is Test {
+contract TestMinting is Test, IERC721Receiver {
     PutinInsultLoot public putinInsultLoot;
 
     function setUp() public {
         putinInsultLoot = new PutinInsultLoot();
+    }
+
+    // Implement the onERC721Received function
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes calldata
+    ) external pure override returns (bytes4) {
+        return this.onERC721Received.selector;
     }
 
     function testMinting() public {
